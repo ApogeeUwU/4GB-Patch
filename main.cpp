@@ -1,7 +1,5 @@
 #include <Windows.h>
-#include <iostream>
-int main() {
-    ShowWindow(GetConsoleWindow(), SW_HIDE);
+int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     OPENFILENAMEA ofn;
     char sf[260];
     RtlZeroMemory(&ofn, sizeof(ofn));
@@ -17,11 +15,9 @@ int main() {
     ofn.lpstrInitialDir = 0;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
     if (GetOpenFileNameA(&ofn) == 1) {
-        std::cout << ofn.lpstrFile << std::endl;
         void* file = CreateFileA(ofn.lpstrFile, GENERIC_READ | GENERIC_WRITE, 0, 0, 3, FILE_ATTRIBUTE_NORMAL, 0);
         WIN32_FILE_ATTRIBUTE_DATA fileInfo;
         GetFileAttributesExA(ofn.lpstrFile, GetFileExInfoStandard, &fileInfo);
-        std::cout << fileInfo.dwFileAttributes << std::endl;
         if (file == INVALID_HANDLE_VALUE) {
             MessageBoxA(0, "Error", "Error", MB_OK | MB_ICONERROR);
             return 1;
