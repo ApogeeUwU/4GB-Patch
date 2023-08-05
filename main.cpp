@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include <iostream>
 int main() {
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
     OPENFILENAMEA ofn;
     char sf[260];
     RtlZeroMemory(&ofn, sizeof(ofn));
